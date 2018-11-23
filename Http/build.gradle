@@ -1,0 +1,8 @@
+apply plugin: 'com.android.library'
+apply from: rootProject.file('gradle/base.gradle')
+
+dependencies {
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation deps.okhttp3
+    implementation deps.support
+}

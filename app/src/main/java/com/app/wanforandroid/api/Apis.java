@@ -30,4 +30,16 @@ public class Apis {
      * GET
      */
     public static String WAN_PROJECT_DATA_LIST = BASE_URL + "project/list/%d/json";
+
+    /**
+     * 公众号分类
+     * GET
+     */
+    public static String WAN_WECHAT_TITLE_LIST = BASE_URL + "wxarticle/chapters/json";
+
+    /**
+     * 公众号列表数据
+     * GET
+     */
+    public static String WAN_WECHAT_DATA_LIST = BASE_URL + "wxarticle/list/%d/%d/json";
 }

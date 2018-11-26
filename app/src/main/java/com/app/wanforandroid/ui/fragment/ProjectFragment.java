@@ -24,7 +24,7 @@ public class ProjectFragment extends BaseFragment {
 
     @BindView(R.id.tablayout)
     SlidingTabLayout tabLayout;
-    @BindView(R.id.view_pager)
+    @BindView(R.id.viewpager_project)
     ViewPager viewPager;
 
     private List<ProjectTitleBean.DataBean> titleDatas = new ArrayList<>();

@@ -30,6 +30,7 @@ dependencies {
 
     //android support
     implementation deps.appcompat
+    implementation deps.design
     implementation deps.recyclerview
     implementation deps.cardview
 
@@ -43,6 +44,7 @@ dependencies {
     implementation deps.butterknife
     implementation deps.refrelayout
     implementation deps.glide
+    implementation deps.glideTrans
     implementation deps.gson
     implementation deps.okhttp3
     implementation deps.rcbaseadapter

@@ -1,7 +1,10 @@
 package com.app.wanforandroid.ui.adapter;
 
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
+import com.app.wanforandroid.R;
+import com.app.wanforandroid.image.ImageManager;
 import com.app.wanforandroid.model.ProjectListBean;
 import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.chad.library.adapter.base.BaseViewHolder;
@@ -19,7 +22,11 @@ public class ProjectListAdapter extends BaseQuickAdapter<ProjectListBean.DataBea
     }
 
     @Override
-    protected void convert(BaseViewHolder helper, ProjectListBean.DataBean.DatasBean item) {
+    protected void convert(BaseViewHolder helper, ProjectListBean.DataBean.DatasBean bean) {
 
+        helper.setText(R.id.tvTitle, bean.getTitle());
+        helper.setText(R.id.tvDescribe, bean.getDesc());
+        ImageView imgSample = helper.getView(R.id.imgSample);
+        ImageManager.loadImage(mContext, imgSample, bean.getEnvelopePic());
     }
 }

@@ -7,8 +7,8 @@ import com.app.wanforandroid.R;
 import com.app.wanforandroid.anim.CustomAnimation;
 import com.app.wanforandroid.api.Apis;
 import com.app.wanforandroid.base.BaseFragment;
-import com.app.wanforandroid.model.ProjectListBean;
-import com.app.wanforandroid.ui.adapter.ProjectListAdapter;
+import com.app.wanforandroid.model.WeChatListBean;
+import com.app.wanforandroid.ui.adapter.WeChatListAdapter;
 import com.app.wanforandroid.util.ToastUtil;
 import com.lib.http.HttpManager;
 import com.lib.http.callback.StringCallback;
@@ -24,37 +24,37 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class ProjectChildFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
+public class WeChatChildFragment extends BaseFragment implements OnRefreshListener, OnLoadMoreListener {
 
     @BindView(R.id.mRefreshLayout)
     SmartRefreshLayout mRefreshLayout;
-    @BindView(R.id.recyclerview_project)
+    @BindView(R.id.recyclerview_wechat)
     RecyclerView mRecyclerView;
 
-    private List<ProjectListBean.DataBean.DatasBean> projectbeans = new ArrayList<>();
+    private List<WeChatListBean.DataBean.DatasBean> wechatbeans = new ArrayList<>();
 
-    private ProjectListAdapter mAdapter;
+    private WeChatListAdapter mAdapter;
 
     private int startPage = 1; //列表页码
 
     private int cid;
 
-    public static ProjectChildFragment getInstance(int id) {
-        ProjectChildFragment cfragment = new ProjectChildFragment();
+    public static WeChatChildFragment getInstance(int id) {
+        WeChatChildFragment cfragment = new WeChatChildFragment();
         cfragment.cid = id;
         return cfragment;
     }
 
     @Override
     public int getLayoutResID() {
-        return R.layout.app_fragment_project_child;
+        return R.layout.app_fragment_wechat_child;
     }
 
     @Override
     public void initData() {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
-        mAdapter = new ProjectListAdapter(R.layout.app_item_project_list, projectbeans);
+        mAdapter = new WeChatListAdapter(R.layout.app_item_home_recommend, wechatbeans);
         mAdapter.isFirstOnly(true);
         mAdapter.openLoadAnimation(new CustomAnimation()); //添加动画
         mRecyclerView.setAdapter(mAdapter);
@@ -83,13 +83,13 @@ public class ProjectChildFragment extends BaseFragment implements OnRefreshListe
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
         params.put("cid", cid);
 
-        HttpManager.get(String.format(Apis.WAN_PROJECT_DATA_LIST, startPage))
+        HttpManager.get(String.format(Apis.WAN_WECHAT_DATA_LIST, cid, startPage))
                 .tag(this)
                 .params(params)
                 .build()
-                .enqueue(new StringCallback<ProjectListBean>() {
+                .enqueue(new StringCallback<WeChatListBean>() {
                     @Override
-                    public void onSuccess(ProjectListBean response, Object... obj) {
+                    public void onSuccess(WeChatListBean response, Object... obj) {
                         refreshProjectList(response);
                     }
 
@@ -110,10 +110,10 @@ public class ProjectChildFragment extends BaseFragment implements OnRefreshListe
      * 装载RecyclerView数据
      * @param response
      */
-    public void refreshProjectList(ProjectListBean response) {
+    public void refreshProjectList(WeChatListBean response) {
         //1、如果是第一页先清空数据 books不用做非空判断，不可能为空
         if (startPage == 0) {
-            projectbeans.clear();
+            wechatbeans.clear();
         }
         //2、装载数据
         mAdapter.addData(response.getData().getDatas());

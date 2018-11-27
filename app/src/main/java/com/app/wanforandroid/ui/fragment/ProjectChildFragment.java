@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 
 import com.app.wanforandroid.R;
 import com.app.wanforandroid.anim.CustomAnimation;
-import com.app.wanforandroid.api.Apis;
+import com.app.wanforandroid.constant.Apis;
 import com.app.wanforandroid.base.BaseFragment;
 import com.app.wanforandroid.model.ProjectListBean;
 import com.app.wanforandroid.ui.adapter.ProjectListAdapter;

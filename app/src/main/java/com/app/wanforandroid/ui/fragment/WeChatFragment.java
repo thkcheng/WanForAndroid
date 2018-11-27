@@ -6,7 +6,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 
 import com.app.wanforandroid.R;
-import com.app.wanforandroid.api.Apis;
+import com.app.wanforandroid.constant.Apis;
 import com.app.wanforandroid.base.BaseFragment;
 import com.app.wanforandroid.model.WeChatTitleBean;
 import com.flyco.tablayout.SlidingTabLayout;

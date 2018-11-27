@@ -9,6 +9,7 @@ import java.net.Proxy;
 import java.util.concurrent.TimeUnit;
 
 import okhttp3.Call;
+import okhttp3.CookieJar;
 import okhttp3.OkHttpClient;
 
 /**
@@ -126,6 +127,14 @@ public class HttpManager {
      */
     public HttpManager setCertificates(InputStream... certificates) {
         setCertificates(null, null, certificates);
+        return this;
+    }
+
+    /**
+     * 设置Cookie
+     */
+    public HttpManager setCookieJar(CookieJar cookieJar) {
+        okHttpClientBuilder.cookieJar(cookieJar);
         return this;
     }
 

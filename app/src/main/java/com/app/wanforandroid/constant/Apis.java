@@ -1,4 +1,4 @@
-package com.app.wanforandroid.api;
+package com.app.wanforandroid.constant;
 
 /**
  * Created by thkcheng on 2018/11/23.
@@ -42,4 +42,16 @@ public class Apis {
      * GET
      */
     public static String WAN_WECHAT_DATA_LIST = BASE_URL + "wxarticle/list/%d/%d/json";
+
+    /**
+     * 收藏列表
+     * GET
+     */
+    public static String WAN_COLLECT_LIST = BASE_URL + "lg/collect/list/%d/json";
+
+    /**
+     * 收藏列表
+     * POST
+     */
+    public static String WAN_USER_LOGIN = BASE_URL + "user/login";
 }

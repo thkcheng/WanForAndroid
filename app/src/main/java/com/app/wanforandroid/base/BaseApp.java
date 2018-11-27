@@ -8,6 +8,8 @@ import com.app.wanforandroid.common.ActivityCallback;
 import com.app.wanforandroid.common.GsonConverter;
 import com.app.wanforandroid.common.InterceptorImpl;
 import com.lib.http.HttpManager;
+import com.lib.http.cookie.store.CookieJarImpl;
+import com.lib.http.cookie.store.PersistentCookieStore;
 
 public class BaseApp {
 
@@ -55,6 +57,7 @@ public class BaseApp {
                 .setHttpConverter(GsonConverter.create())
                 .setInterceptor(new InterceptorImpl())
                 .setCertificates() //无证书可以为null
+                .setCookieJar(new CookieJarImpl(new PersistentCookieStore(getContext()))) //设置Cooike
                 .build();
 
     }

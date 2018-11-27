@@ -6,7 +6,7 @@ import android.widget.ImageView;
 
 import com.app.wanforandroid.R;
 import com.app.wanforandroid.anim.CustomAnimation;
-import com.app.wanforandroid.api.Apis;
+import com.app.wanforandroid.constant.Apis;
 import com.app.wanforandroid.base.BaseFragment;
 import com.app.wanforandroid.image.ImageManager;
 import com.app.wanforandroid.model.HomeBannerBean;

@@ -56,19 +56,21 @@ public class MainActivity extends BaseActivity {
     }
 
     @Override
-    public void initData() {
+    public void initView() {
         setTitle(mTitles[0]);
 
-        List<Fragment> pages = new ArrayList<>();
+        final List<Fragment> pages = new ArrayList<>();
         pages.add(new HomeFragment());
         pages.add(new ProjectFragment());
         pages.add(new WeChatFragment());
         pages.add(new SystemFragment());
         pages.add(new MyFragment());
         viewpagerMain.setAdapter(new BaseFragmentPagerAdapter(getSupportFragmentManager(), pages));
-        viewpagerMain.setOffscreenPageLimit(2);
+        viewpagerMain.setOffscreenPageLimit(5);
 
         argbEvaluatorUtil.addTab(rbMainHome, rbMainProject, rbMainWeChat, rbMainSystem, rbMainMy);
+        argbEvaluatorUtil.addTabDrawable(R.mipmap.icon_home_bootom_tab,R.mipmap.icon_tixi_bootom_tab,
+                R.mipmap.icon_tixi_bootom_tab,R.mipmap.icon_tixi_bootom_tab,R.mipmap.icon_mine_bootom_tab);
     }
 
     @Override
@@ -78,23 +80,18 @@ public class MainActivity extends BaseActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
                 switch (checkedId) {
                     case R.id.rbtn_main_home:
-                        setTitle(mTitles[0]);
                         viewpagerMain.setCurrentItem(0, false);
                         break;
                     case R.id.rbtn_main_project:
-                        setTitle(mTitles[1]);
                         viewpagerMain.setCurrentItem(1, false);
                         break;
                     case R.id.rbtn_main_wechat:
-                        setTitle(mTitles[2]);
                         viewpagerMain.setCurrentItem(2, false);
                         break;
                     case R.id.rbtn_main_system:
-                        setTitle(mTitles[3]);
                         viewpagerMain.setCurrentItem(3, false);
                         break;
                     case R.id.rbtn_main_my:
-                        setTitle(mTitles[4]);
                         viewpagerMain.setCurrentItem(4, false);
                         break;
                 }
@@ -109,7 +106,7 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-                //argbEvaluatorUtil.changeTabDrawable(position, positionOffset);
+                argbEvaluatorUtil.changeTabDrawable(position, positionOffset);
             }
 
             @Override
@@ -118,11 +115,10 @@ public class MainActivity extends BaseActivity {
                     @Override
                     public void run() {
                         setTitle(mTitles[position]);
-                        //argbEvaluatorUtil.setTabSelect(position);
+                        argbEvaluatorUtil.setTabSelect(position);
                     }
                 }, DELAY_TIME);
-                //argbEvaluatorUtil.setChecked(position);
-
+                argbEvaluatorUtil.setChecked(position);
             }
 
             @Override

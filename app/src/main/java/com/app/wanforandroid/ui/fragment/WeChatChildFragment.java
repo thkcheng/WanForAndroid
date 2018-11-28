@@ -37,35 +37,31 @@ public class WeChatChildFragment extends BaseFragment implements OnRefreshListen
 
     private int startPage = 1; //列表页码
 
-    private int cid;
-
-    public static WeChatChildFragment getInstance(int id) {
-        WeChatChildFragment cfragment = new WeChatChildFragment();
-        cfragment.cid = id;
-        return cfragment;
-    }
-
     @Override
     public int getLayoutResID() {
         return R.layout.app_fragment_wechat_child;
     }
 
     @Override
-    public void initData() {
+    public void initView() {
 
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new WeChatListAdapter(R.layout.app_item_home_recommend, wechatbeans);
-        mAdapter.isFirstOnly(true);
-        mAdapter.openLoadAnimation(new CustomAnimation()); //添加动画
+        //mAdapter.isFirstOnly(true);
+        //mAdapter.openLoadAnimation(new CustomAnimation()); //添加动画
         mRecyclerView.setAdapter(mAdapter);
-
-        requestProjectListData();
     }
 
     @Override
     public void setListener() {
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
+    }
+
+    @Override
+    public void onLazyLoadingData() {
+        super.onLazyLoadingData();
+        requestProjectListData();
     }
 
     @Override
@@ -80,12 +76,9 @@ public class WeChatChildFragment extends BaseFragment implements OnRefreshListen
     }
 
     private void requestProjectListData() {
-        LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("cid", cid);
 
-        HttpManager.get(String.format(Apis.WAN_WECHAT_DATA_LIST, cid, startPage))
+        HttpManager.get(String.format(Apis.WAN_WECHAT_DATA_LIST, getArguments().getInt("cid"), startPage))
                 .tag(this)
-                .params(params)
                 .build()
                 .enqueue(new StringCallback<WeChatListBean>() {
                     @Override
@@ -102,6 +95,7 @@ public class WeChatChildFragment extends BaseFragment implements OnRefreshListen
                     public void onAfter(boolean success) {
                         mRefreshLayout.finishRefresh();
                         mRefreshLayout.finishLoadMore();
+                        hideLoading(success);
                     }
                 });
     }

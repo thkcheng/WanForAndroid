@@ -11,8 +11,8 @@ public interface IBaseUI {
     int getLayoutResID();
 
     /**
-     * 初始化数据 在{@link #getLayoutResID()} 之后
+     * 初始化View 在{@link #getLayoutResID()} 之后
      */
-    void initData();
+    void initView();
 
 }

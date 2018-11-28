@@ -115,7 +115,7 @@ public class InterceptorImpl implements HttpInterceptor {
         // >>> https://...
         // >>> {"code":10,...
         String result = String.format("Response\n >>> %s\n >>> %s", url, body);
-        Logger.i(TAG, result);
+        //Logger.i(TAG, result);
 
         responseBody = ResponseBody.create(responseBody.contentType(), body);
         return response.newBuilder().body(responseBody).build();

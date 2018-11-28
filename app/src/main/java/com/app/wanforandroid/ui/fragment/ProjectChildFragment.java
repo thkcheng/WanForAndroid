@@ -37,35 +37,31 @@ public class ProjectChildFragment extends BaseFragment implements OnRefreshListe
 
     private int startPage = 1; //列表页码
 
-    private int cid;
-
-    public static ProjectChildFragment getInstance(int id) {
-        ProjectChildFragment cfragment = new ProjectChildFragment();
-        cfragment.cid = id;
-        return cfragment;
-    }
-
     @Override
     public int getLayoutResID() {
         return R.layout.app_fragment_project_child;
     }
 
     @Override
-    public void initData() {
-
+    public void initView() {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mAdapter = new ProjectListAdapter(R.layout.app_item_project_list, projectbeans);
-        mAdapter.isFirstOnly(true);
-        mAdapter.openLoadAnimation(new CustomAnimation()); //添加动画
+        //mAdapter.isFirstOnly(true);
+        //mAdapter.openLoadAnimation(new CustomAnimation()); //添加动画
         mRecyclerView.setAdapter(mAdapter);
-
-        requestProjectListData();
     }
 
     @Override
     public void setListener() {
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
+    }
+
+    @Override
+    public void onLazyLoadingData() {
+        super.onLazyLoadingData();
+
+        requestProjectListData();
     }
 
     @Override
@@ -81,7 +77,7 @@ public class ProjectChildFragment extends BaseFragment implements OnRefreshListe
 
     private void requestProjectListData() {
         LinkedHashMap<String, Object> params = new LinkedHashMap<>();
-        params.put("cid", cid);
+        params.put("cid", getArguments().getInt("cid"));
 
         HttpManager.get(String.format(Apis.WAN_PROJECT_DATA_LIST, startPage))
                 .tag(this)
@@ -102,6 +98,7 @@ public class ProjectChildFragment extends BaseFragment implements OnRefreshListe
                     public void onAfter(boolean success) {
                         mRefreshLayout.finishRefresh();
                         mRefreshLayout.finishLoadMore();
+                        hideLoading(success);
                     }
                 });
     }

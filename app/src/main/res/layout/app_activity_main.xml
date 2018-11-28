@@ -21,32 +21,39 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingBottom="5dp"
+        android:paddingTop="5dp">
 
         <RadioButton
             android:id="@+id/rbtn_main_home"
             style="@style/RButtonMain"
             android:checked="true"
+            android:drawableTop="@mipmap/icon_home_bootom_tab"
             android:text="首页" />
 
         <RadioButton
             android:id="@+id/rbtn_main_project"
             style="@style/RButtonMain"
+            android:drawableTop="@mipmap/icon_tixi_bootom_tab"
             android:text="项目" />
 
         <RadioButton
             android:id="@+id/rbtn_main_wechat"
             style="@style/RButtonMain"
+            android:drawableTop="@mipmap/icon_tixi_bootom_tab"
             android:text="公众号" />
 
         <RadioButton
             android:id="@+id/rbtn_main_system"
             style="@style/RButtonMain"
+            android:drawableTop="@mipmap/icon_tixi_bootom_tab"
             android:text="体系" />
 
         <RadioButton
             android:id="@+id/rbtn_main_my"
             style="@style/RButtonMain"
+            android:drawableTop="@mipmap/icon_mine_bootom_tab"
             android:text="我的" />
 
     </RadioGroup>

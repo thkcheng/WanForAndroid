@@ -36,7 +36,7 @@ public class LoginActivity extends BaseActivity {
     }
 
     @Override
-    public void initData() {
+    public void initView() {
 
     }
 
@@ -69,6 +69,7 @@ public class LoginActivity extends BaseActivity {
                     @Override
                     public void onSuccess(LoginBean response, Object... obj) {
                         SPUtil.putInt(PreferencesName.APP_USER_ID, response.getData().getId());
+                        SPUtil.putString(PreferencesName.APP_USER_NAME, response.getData().getUsername());
                         Intent intent = new Intent();
                         intent.putExtra("userName", response.getData().getUsername());
                         setResult(RESULT_OK, intent);

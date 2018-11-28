@@ -11,11 +11,15 @@ import com.lib.http.HttpManager;
 import com.lib.http.cookie.store.CookieJarImpl;
 import com.lib.http.cookie.store.PersistentCookieStore;
 
+import okhttp3.CookieJar;
+
 public class BaseApp {
 
     private Context context;
 
     private ActivityCallback lifeCallback;
+
+    private CookieJar cookieJar;
 
     private BaseApp() {
     }
@@ -52,12 +56,13 @@ public class BaseApp {
     }
 
     private void initOkhttp() {
+        cookieJar = new CookieJarImpl(new PersistentCookieStore(getContext()));
         HttpManager.getInstance()
                 .setTimeOut(30)
                 .setHttpConverter(GsonConverter.create())
                 .setInterceptor(new InterceptorImpl())
                 .setCertificates() //无证书可以为null
-                .setCookieJar(new CookieJarImpl(new PersistentCookieStore(getContext()))) //设置Cooike
+                .setCookieJar(cookieJar) //设置Cooike
                 .build();
 
     }

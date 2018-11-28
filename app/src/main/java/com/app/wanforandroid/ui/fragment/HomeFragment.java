@@ -55,18 +55,23 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
     }
 
     @Override
-    public void initData() {
+    public void initView() {
         initBannerView();
         initRecyclerItem();
 
-        requestBanner();
-        requestRecommend();
+        loadData();
     }
 
     @Override
     public void setListener() {
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
+    }
+
+    @Override
+    public void loadData() {
+        requestBanner();
+        requestRecommend();
     }
 
     @Override
@@ -106,8 +111,8 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setNestedScrollingEnabled(false); //解决在NestedScrollView滑动粘连的问题
         mAdapter = new HomeRecommendAdapter(R.layout.app_item_home_recommend, homebeans);
-        mAdapter.isFirstOnly(true);
-        mAdapter.openLoadAnimation(new CustomAnimation()); //添加动画
+        //mAdapter.isFirstOnly(true);
+        //mAdapter.openLoadAnimation(new CustomAnimation()); //添加动画
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -148,6 +153,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
                     public void onAfter(boolean success) {
                         mRefreshLayout.finishRefresh();
                         mRefreshLayout.finishLoadMore();
+                        hideLoading(success);
                     }
                 });
     }

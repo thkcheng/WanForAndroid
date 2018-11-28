@@ -1,9 +1,7 @@
 package com.app.wanforandroid.ui.fragment;
 
-import android.annotation.TargetApi;
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CollapsingToolbarLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -20,7 +18,6 @@ import com.app.wanforandroid.constant.Apis;
 import com.app.wanforandroid.base.BaseFragment;
 import com.app.wanforandroid.constant.PreferencesName;
 import com.app.wanforandroid.model.CollectBean;
-import com.app.wanforandroid.model.LoginBean;
 import com.app.wanforandroid.result.AvoidOnResult;
 import com.app.wanforandroid.ui.activity.LoginActivity;
 import com.app.wanforandroid.ui.adapter.CollectAdapter;
@@ -81,9 +78,7 @@ public class MyFragment extends BaseFragment {
     }
 
     @Override
-    public void initData() {
-        initView();
-
+    public void initView() {
         //把title设置到CollapsingToolbarLayout上
         setTitleToCollapsingToolbarLayout();
 
@@ -95,30 +90,27 @@ public class MyFragment extends BaseFragment {
     }
 
     @Override
+    public void onLazyLoadingData() {
+        super.onLazyLoadingData();
+
+        requestCollectData();
+    }
+
+    @Override
     public void setListener() {
         imgHeaderIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                if (SPUtil.getInt(PreferencesName.APP_USER_ID) == 0) {
                 // 模仿RxPermissions动态申请权限的方式跳转后可回调
                 new AvoidOnResult(mActivity).startForResult(LoginActivity.class, new AvoidOnResult.Callback() {
                     @Override
                     public void onActivityResult(int resultCode, Intent data) {
-                        loginShowCollectList(data);
+                        loginShowCollectList();
                     }
                 });
-//                }
             }
         });
     }
-
-    private void initView() {
-        Glide.with(mActivity).load(R.mipmap.ic_my_bg_default)
-                .bitmapTransform(new BlurTransformation(mActivity, 100, 5))
-                .into(imgHeaderBg);
-
-    }
-
 
     /**
      * 1. 动态设置ToolBar滑动透明度
@@ -164,8 +156,8 @@ public class MyFragment extends BaseFragment {
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setNestedScrollingEnabled(false); //解决在NestedScrollView滑动粘连的问题
         mAdapter = new CollectAdapter(R.layout.app_item_home_recommend, collectbeans);
-        mAdapter.isFirstOnly(true);
-        mAdapter.openLoadAnimation(new CustomAnimation()); //添加动画
+        //mAdapter.isFirstOnly(true);
+        //mAdapter.openLoadAnimation(new CustomAnimation()); //添加动画
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -199,6 +191,7 @@ public class MyFragment extends BaseFragment {
                     @Override
                     public void onSuccess(CollectBean response, Object... obj) {
                         refreshCollectList(response);
+                        loginShowCollectList();
                     }
 
                     @Override
@@ -211,14 +204,11 @@ public class MyFragment extends BaseFragment {
 
     /**
      * 登录后显示用户数据
-     *
-     * @param data
      */
-    private void loginShowCollectList(Intent data) {
+    private void loginShowCollectList() {
         imgHeaderIcon.setImageResource(R.mipmap.icon_head_login);
         tvUserName.setVisibility(View.VISIBLE);
-        tvUserName.setText(data.getStringExtra("userName"));
-        requestCollectData();
+        tvUserName.setText(SPUtil.getString(PreferencesName.APP_USER_NAME));
     }
 
 
@@ -233,7 +223,7 @@ public class MyFragment extends BaseFragment {
             collectbeans.clear();
         }
         if (response.getData() == null) {
-            ToastUtil.showToast("无数据或未登录");
+            ToastUtil.showToast("Cookie时效请重新登录");
             return;
         }
         //2、装载数据

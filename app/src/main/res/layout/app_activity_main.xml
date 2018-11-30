@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <include
         android:id="@+id/toolbar"
-        layout="@layout/app_toolbar_layout"
-        android:visibility="gone" />
+        layout="@layout/app_toolbar_layout" />
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager_main"
@@ -23,7 +23,8 @@
         android:background="@android:color/white"
         android:orientation="horizontal"
         android:paddingBottom="5dp"
-        android:paddingTop="5dp">
+        android:paddingTop="5dp"
+        android:visibility="visible">
 
         <RadioButton
             android:id="@+id/rbtn_main_home"
@@ -51,11 +52,19 @@
             android:text="体系" />
 
         <RadioButton
-            android:id="@+id/rbtn_main_my"
+            android:id="@+id/rbtn_main_navi"
             style="@style/RButtonMain"
-            android:drawableTop="@mipmap/icon_mine_bootom_tab"
-            android:text="我的" />
-
+            android:drawableTop="@mipmap/icon_tixi_bootom_tab"
+            android:text="导航" />
     </RadioGroup>
+
+
+    <android.support.design.widget.BottomNavigationView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:background="?android:attr/windowBackground"
+        android:visibility="gone"
+        app:menu="@menu/menu_main_bootom_tab" />
 
 </RelativeLayout>

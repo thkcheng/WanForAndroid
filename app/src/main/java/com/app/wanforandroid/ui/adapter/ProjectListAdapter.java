@@ -24,8 +24,10 @@ public class ProjectListAdapter extends BaseQuickAdapter<ProjectListBean.DataBea
     @Override
     protected void convert(BaseViewHolder helper, ProjectListBean.DataBean.DatasBean bean) {
 
-        helper.setText(R.id.tvTitle, bean.getTitle());
-        helper.setText(R.id.tvDescribe, bean.getDesc());
+        helper.setText(R.id.tvTitle, bean.getTitle())
+            .setText(R.id.tvDescribe, bean.getDesc())
+            .addOnClickListener(R.id.itemView);
+
         ImageView imgSample = helper.getView(R.id.imgSample);
         ImageManager.loadImage(mContext, imgSample, bean.getEnvelopePic());
     }

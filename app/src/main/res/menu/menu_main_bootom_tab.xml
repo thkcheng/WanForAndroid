@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:icon="@mipmap/icon_home_bootom_tab"
+        android:title="首页"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:icon="@mipmap/icon_tixi_bootom_tab"
+        android:title="项目"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:icon="@mipmap/icon_tixi_bootom_tab"
+        android:title="公众号"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:icon="@mipmap/icon_tixi_bootom_tab"
+        android:title="体系"
+        app:showAsAction="ifRoom"/>
+
+    <item
+        android:icon="@mipmap/icon_mine_bootom_tab"
+        android:title="我的"
+        app:showAsAction="ifRoom"/>
+
+</menu>

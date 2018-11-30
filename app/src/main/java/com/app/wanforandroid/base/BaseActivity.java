@@ -10,6 +10,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 
 import com.app.wanforandroid.R;
+import com.app.wanforandroid.widget.LoadingDataLayout;
 import com.lib.http.HttpManager;
 
 import butterknife.BindView;
@@ -24,6 +25,14 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseUI 
     @BindView(R.id.toolbar)
     protected Toolbar toolbar;
 
+    /**
+     * 网络请求各种状态显示容器
+     * <p>Required view 'view_loading_container' with ID 2131427348 for field 'mLoadingDataLayout' was not found. If this view is optional add '@Nullable' (fields) or '@Optional' (methods) annotation.
+     */
+    @Nullable
+    @BindView(R.id.view_loading_container)
+    protected LoadingDataLayout mLoadingDataLayout;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +43,7 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseUI 
         ButterKnife.bind(this);//必须在setContentView()之后调用
 
         initToolBar();
+        initLoadingDataLayout();
 
         //保证onCreate方法第一时间执行完，显示UI界面
         //如果加载数据的方法直接在onCreate里执行，可能会导致UI界面不能及时显示
@@ -45,6 +55,19 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseUI 
             }
         });
     }
+
+    private void initLoadingDataLayout() {
+        if (mLoadingDataLayout != null) {
+            showLoading();
+            mLoadingDataLayout.setRetryListener(new LoadingDataLayout.OnRetryListener() {
+                @Override
+                public void onRetry() {
+                    loadData();
+                }
+            });
+        }
+    }
+
 
     /**
      * 加载数据，如请求网络，读取本地缓存等
@@ -107,7 +130,6 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseUI 
     protected void onDestroy() {
         //如果关闭页面，取消请求
         HttpManager.cancelTag(this);
-
         super.onDestroy();
     }
 
@@ -118,5 +140,28 @@ public abstract class BaseActivity extends AppCompatActivity implements IBaseUI 
      */
     protected Activity getActivity() {
         return this;
+    }
+
+    public void showLoading() {
+        showLoadingStatus(LoadingDataLayout.STATUS_LOADING);
+    }
+
+    public void hideLoading(boolean success) {
+        if (success) {
+            showLoadingStatus(LoadingDataLayout.STATUS_SUCCESS);
+        } else {
+            showLoadingStatus(LoadingDataLayout.STATUS_ERROR);
+        }
+    }
+
+    /**
+     * 展示网络请求各种状态
+     *
+     * @param status 网络请求状态
+     */
+    protected void showLoadingStatus(int status) {
+        if (mLoadingDataLayout != null && !mLoadingDataLayout.isSuccess()) {
+            mLoadingDataLayout.setStatus(status);
+        }
     }
 }

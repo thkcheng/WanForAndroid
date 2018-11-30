@@ -11,6 +11,9 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
+    <!-- 硬件加速对X5视频播放非常重要，建议开启 -->
+    <uses-permission android:name="android.permission.GET_TASKS" />
+
     <application
         android:name=".WanApplication"
         android:allowBackup="true"
@@ -28,6 +31,10 @@
         </activity>
 
         <activity android:name=".ui.activity.LoginActivity"/>
+        <activity android:name=".ui.activity.ContentDetailsActivity"/>
+        <activity android:name=".ui.activity.CollectListActivity"/>
+        <activity android:name=".ui.activity.ToDoToolActivity"/>
+        <activity android:name=".ui.activity.SettingActivity"/>
     </application>
 
 </manifest>

@@ -66,9 +66,9 @@ public class WeChatFragment extends BaseFragment {
                         for (int i = 0; i < titleDatas.size(); i++) {
                             Bundle bundle = new Bundle();
                             bundle.putInt("cid", titleDatas.get(i).getId());
-                            ProjectChildFragment pfragment = new ProjectChildFragment();
-                            pfragment.setArguments(bundle);
-                            pages.add(pfragment);
+                            WeChatChildFragment wfragment = new WeChatChildFragment();
+                            wfragment.setArguments(bundle);
+                            pages.add(wfragment);
                         }
                         BaseFragmentPagerAdapter mAdapter = new BaseFragmentPagerAdapter(getActivity().getSupportFragmentManager(), pages);
                         viewPager.setAdapter(mAdapter);

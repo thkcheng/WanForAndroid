@@ -16,6 +16,7 @@
         app:cardBackgroundColor="@color/colorWhite">
 
         <LinearLayout
+            android:id="@+id/itemView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -26,10 +27,19 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/tvSuperChapterName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="项目必备"
+                    android:textColor="@color/colorGray"
+                    android:textSize="13dp" />
+
+                <TextView
                     android:id="@+id/tvChapterName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="机器学习-人工智能"
+                    android:layout_toRightOf="@+id/tvSuperChapterName"
+                    android:text="混淆"
                     android:textColor="@color/colorGray"
                     android:textSize="13dp" />
 
@@ -49,20 +59,21 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:maxLines="2"
                 android:text="人工智能数学基础-线性二阶"
-                android:layout_marginTop="10dp"
                 android:textColor="@color/colorBlack"
                 android:textSize="16dp" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:layout_marginTop="10dp"
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/textview"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="作者"
@@ -74,17 +85,20 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="10dp"
+                    android:layout_toRightOf="@+id/textview"
                     android:text="JerryloveEmily"
                     android:textColor="@color/colorBlue"
                     android:textSize="13dp" />
 
-            </LinearLayout>
+                <ImageView
+                    android:id="@+id/imgLike"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="10dp"
+                    android:src="@mipmap/icon_like_default" />
 
-            <ImageView
-                android:id="@+id/imgLike"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:visibility="gone"/>
+            </RelativeLayout>
 
         </LinearLayout>
 

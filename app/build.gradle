@@ -11,6 +11,10 @@ android {
         versionName versions.versionName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+        ndk{
+            abiFilters "armeabi", "armeabi-v7a", "x86", "mips"
+        }
     }
 
     buildTypes {
@@ -48,7 +52,8 @@ dependencies {
     implementation deps.gson
     implementation deps.okhttp3
     implementation deps.rcbaseadapter
-    implementation deps.FlycoTabLayout
+    implementation deps.flycoTabLayout
+    implementation deps.agentweb
 
     //module
     implementation project(':Http')

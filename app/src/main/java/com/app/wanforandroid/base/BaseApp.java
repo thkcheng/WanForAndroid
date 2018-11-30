@@ -3,7 +3,9 @@ package com.app.wanforandroid.base;
 
 import android.app.Application;
 import android.content.Context;
+import android.util.Log;
 
+import com.app.wanforandroid.BuildConfig;
 import com.app.wanforandroid.common.ActivityCallback;
 import com.app.wanforandroid.common.GsonConverter;
 import com.app.wanforandroid.common.InterceptorImpl;

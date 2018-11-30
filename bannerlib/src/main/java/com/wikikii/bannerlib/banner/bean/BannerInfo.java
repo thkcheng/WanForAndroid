@@ -10,9 +10,11 @@ package com.wikikii.bannerlib.banner.bean;
 public class BannerInfo<T> {
     public T data;
     public String title;
+    public String link;
 
-    public BannerInfo(T data, String title) {
+    public BannerInfo(T data, String title, String link) {
         this.data = data;
         this.title = title;
+        this.link = link;
     }
 }

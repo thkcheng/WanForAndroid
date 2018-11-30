@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <PreferenceCategory android:title="基本设置">
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="switch_noPhotoMode"
+            android:summary="开启后在非WIFI环境下不加载图片"
+            android:title="无图模式" />
+
+        <CheckBoxPreference
+            android:defaultValue="true"
+            android:key="switch_noPhotoMode"
+            android:summary="开启后将会在首页显示置顶文章"
+            android:title="是否显示首页置顶文章" />
+
+        <Preference
+            android:key="text_size"
+            android:summary="设置字体大小"
+            android:title="字体大小" />
+
+    </PreferenceCategory>
+
+
+    <PreferenceCategory android:title="其他设置">
+
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="switch_noPhotoMode"
+            android:summary="导航栏颜色跟随主题"
+            android:title="底部导航栏着色" />
+
+        <Preference
+            android:key="cache"
+            android:summary="5.0MB"
+            android:title="清除缓存" />
+
+    </PreferenceCategory>
+
+    <PreferenceCategory android:title="关于">
+
+
+        <Preference
+            android:key="version"
+            android:summary="当前版本1.0.0"
+            android:title="版本" />
+
+        <Preference
+            android:key="updateLog"
+            android:summary="7907716@qq.com"
+            android:title="更新日志" />
+
+        <Preference
+            android:key="updateLog"
+            android:summary="仅作个人及非商业用途"
+            android:title="版权申明" />
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

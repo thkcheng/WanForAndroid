@@ -152,4 +152,7 @@
      <init>(...);
 }
 
+# AgentWeb
+-keep public class * extends android.webkit.WebChromeClient
+
 #=========================== 第三方包 end ===========================

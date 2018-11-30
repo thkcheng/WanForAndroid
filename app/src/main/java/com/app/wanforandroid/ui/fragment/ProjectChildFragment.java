@@ -1,15 +1,19 @@
 package com.app.wanforandroid.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
 import com.app.wanforandroid.R;
 import com.app.wanforandroid.anim.CustomAnimation;
 import com.app.wanforandroid.constant.Apis;
 import com.app.wanforandroid.base.BaseFragment;
 import com.app.wanforandroid.model.ProjectListBean;
+import com.app.wanforandroid.ui.activity.ContentDetailsActivity;
 import com.app.wanforandroid.ui.adapter.ProjectListAdapter;
 import com.app.wanforandroid.util.ToastUtil;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lib.http.HttpManager;
 import com.lib.http.callback.StringCallback;
 import com.lib.http.error.ErrorModel;
@@ -55,6 +59,18 @@ public class ProjectChildFragment extends BaseFragment implements OnRefreshListe
     public void setListener() {
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
+
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+                if (view.getId() == R.id.itemView) {
+                    Intent intent = new Intent(mActivity, ContentDetailsActivity.class);
+                    intent.putExtra("title", projectbeans.get(position).getTitle());
+                    intent.putExtra("link_url", projectbeans.get(position).getLink());
+                    startActivity(intent);
+                }
+            }
+        });
     }
 
     @Override

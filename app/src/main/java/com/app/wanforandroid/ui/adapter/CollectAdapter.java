@@ -1,6 +1,7 @@
 package com.app.wanforandroid.ui.adapter;
 
 import android.support.annotation.Nullable;
+import android.widget.ImageView;
 
 import com.app.wanforandroid.R;
 import com.app.wanforandroid.model.CollectBean;
@@ -24,5 +25,8 @@ public class CollectAdapter extends BaseQuickAdapter<CollectBean.DataBean.DatasB
         helper.setText(R.id.tvTime, TimeUtil.getPublishTime(bean.getPublishTime()));
         helper.setText(R.id.tvChapterName, bean.getChapterName());
         helper.setText(R.id.tvAuthor, bean.getAuthor());
+
+        ImageView imgLike = helper.getView(R.id.imgLike);
+        imgLike.setImageResource(R.mipmap.icon_like_press);
     }
 }

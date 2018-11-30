@@ -1,7 +1,9 @@
 package com.app.wanforandroid.ui.fragment;
 
+import android.content.Intent;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.app.wanforandroid.R;
@@ -11,8 +13,10 @@ import com.app.wanforandroid.base.BaseFragment;
 import com.app.wanforandroid.image.ImageManager;
 import com.app.wanforandroid.model.HomeBannerBean;
 import com.app.wanforandroid.model.HomeListBean;
+import com.app.wanforandroid.ui.activity.ContentDetailsActivity;
 import com.app.wanforandroid.ui.adapter.HomeRecommendAdapter;
 import com.app.wanforandroid.util.ToastUtil;
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.lib.http.HttpManager;
 import com.lib.http.callback.StringCallback;
 import com.lib.http.error.ErrorModel;
@@ -66,6 +70,24 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
     public void setListener() {
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
+
+        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
+            @Override
+            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+
+                switch (view.getId()) {
+                    case R.id.itemView:
+                        Intent intent = new Intent(mActivity, ContentDetailsActivity.class);
+                        intent.putExtra("title", homebeans.get(position).getTitle());
+                        intent.putExtra("link_url", homebeans.get(position).getLink());
+                        startActivity(intent);
+                        break;
+                    case R.id.imgLike:
+                        ImageView imgLike = (ImageView) view;
+                        break;
+                }
+            }
+        });
     }
 
     @Override
@@ -99,7 +121,10 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
         loopBanner.setOnBannerItemClickListener(new OnBannerItemClickListener() {
             @Override
             public void onBannerClick(int index, ArrayList<BannerInfo> banner) {
-                ToastUtil.showToast(banner.get(index).title);
+                Intent intent = new Intent(mActivity, ContentDetailsActivity.class);
+                intent.putExtra("title", banner.get(index).title);
+                intent.putExtra("link_url", banner.get(index).link);
+                startActivity(intent);
             }
         });
     }
@@ -111,8 +136,6 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
         mRecyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
         mRecyclerView.setNestedScrollingEnabled(false); //解决在NestedScrollView滑动粘连的问题
         mAdapter = new HomeRecommendAdapter(R.layout.app_item_home_recommend, homebeans);
-        //mAdapter.isFirstOnly(true);
-        //mAdapter.openLoadAnimation(new CustomAnimation()); //添加动画
         mRecyclerView.setAdapter(mAdapter);
     }
 
@@ -134,7 +157,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
     }
 
     private void requestRecommend() {
-        HttpManager.get(String.format(Apis.WAN_HOME_LIST,startPage))
+        HttpManager.get(String.format(Apis.WAN_HOME_LIST, startPage))
                 .tag(this)
                 .build()
                 .enqueue(new StringCallback<HomeListBean>() {
@@ -160,13 +183,14 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
 
     /**
      * 装载Banner数据
+     *
      * @param data
      */
     private void loadBannerData(List<HomeBannerBean.DataBean> data) {
         ArrayList<BannerInfo> bannerInfos = new ArrayList<>();
         List<Object> bgList = new ArrayList<>();
         for (int i = 0; i < data.size(); i++) {
-            bannerInfos.add(new BannerInfo(data.get(i).getImagePath(), data.get(i).getTitle()));
+            bannerInfos.add(new BannerInfo(data.get(i).getImagePath(), data.get(i).getTitle(), data.get(i).getUrl()));
             bgList.add(data.get(i).getImagePath());
         }
 
@@ -185,6 +209,7 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
 
     /**
      * 装载RecyclerView数据
+     *
      * @param response
      */
     public void refreshRecommendList(HomeListBean response) {

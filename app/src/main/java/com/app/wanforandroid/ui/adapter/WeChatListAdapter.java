@@ -18,9 +18,10 @@ public class WeChatListAdapter extends BaseQuickAdapter<WeChatListBean.DataBean.
 
     @Override
     protected void convert(BaseViewHolder helper, WeChatListBean.DataBean.DatasBean bean) {
-        helper.setText(R.id.tvTitle, bean.getTitle());
-        helper.setText(R.id.tvTime, TimeUtil.getPublishTime(bean.getPublishTime()));
-        helper.setText(R.id.tvChapterName, bean.getChapterName());
-        helper.setText(R.id.tvAuthor, bean.getAuthor());
+        helper.setText(R.id.tvTitle, bean.getTitle())
+                .setText(R.id.tvTime, TimeUtil.getPublishTime(bean.getPublishTime()))
+                .setText(R.id.tvChapterName, bean.getChapterName())
+                .setText(R.id.tvAuthor, bean.getAuthor())
+                .addOnClickListener(R.id.itemView);
     }
 }

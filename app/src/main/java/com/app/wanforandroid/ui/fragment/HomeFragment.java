@@ -71,21 +71,17 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
 
-        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-
-                switch (view.getId()) {
-                    case R.id.itemView:
-                        Intent intent = new Intent(mActivity, ContentDetailsActivity.class);
-                        intent.putExtra("title", homebeans.get(position).getTitle());
-                        intent.putExtra("link_url", homebeans.get(position).getLink());
-                        startActivity(intent);
-                        break;
-                    case R.id.imgLike:
-                        ImageView imgLike = (ImageView) view;
-                        break;
-                }
+        mAdapter.setOnItemChildClickListener((adapter, view, position) -> {
+            switch (view.getId()) {
+                case R.id.itemView:
+                    Intent intent = new Intent(mActivity, ContentDetailsActivity.class);
+                    intent.putExtra("title", homebeans.get(position).getTitle());
+                    intent.putExtra("link_url", homebeans.get(position).getLink());
+                    startActivity(intent);
+                    break;
+                case R.id.imgLike:
+                    ImageView imgLike = (ImageView) view;
+                    break;
             }
         });
     }
@@ -118,14 +114,11 @@ public class HomeFragment extends BaseFragment implements OnRefreshListener, OnL
         loopBanner.setIndicatorLocation(IndicatorLocation.Center);//指示器位置-中Center
         loopBanner.initializeData(mActivity); //初始化创建
 
-        loopBanner.setOnBannerItemClickListener(new OnBannerItemClickListener() {
-            @Override
-            public void onBannerClick(int index, ArrayList<BannerInfo> banner) {
-                Intent intent = new Intent(mActivity, ContentDetailsActivity.class);
-                intent.putExtra("title", banner.get(index).title);
-                intent.putExtra("link_url", banner.get(index).link);
-                startActivity(intent);
-            }
+        loopBanner.setOnBannerItemClickListener((index, banner) -> {
+            Intent intent = new Intent(mActivity, ContentDetailsActivity.class);
+            intent.putExtra("title", banner.get(index).title);
+            intent.putExtra("link_url", banner.get(index).link);
+            startActivity(intent);
         });
     }
 

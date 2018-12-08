@@ -114,31 +114,28 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
         imgUserIcon.setOnClickListener(this);
         navigationView.setNavigationItemSelectedListener(this);
 
-        radioGroupMain.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, int checkedId) {
-                switch (checkedId) {
-                    case R.id.rbtn_main_home:
-                        setTitle(mTitles[0]);
-                        viewpagerMain.setCurrentItem(0, false);
-                        break;
-                    case R.id.rbtn_main_project:
-                        setTitle(mTitles[1]);
-                        viewpagerMain.setCurrentItem(1, false);
-                        break;
-                    case R.id.rbtn_main_wechat:
-                        setTitle(mTitles[2]);
-                        viewpagerMain.setCurrentItem(2, false);
-                        break;
-                    case R.id.rbtn_main_system:
-                        setTitle(mTitles[3]);
-                        viewpagerMain.setCurrentItem(3, false);
-                        break;
-                    case R.id.rbtn_main_navi:
-                        setTitle(mTitles[4]);
-                        viewpagerMain.setCurrentItem(4, false);
-                        break;
-                }
+        radioGroupMain.setOnCheckedChangeListener((group, checkedId) -> {
+            switch (checkedId) {
+                case R.id.rbtn_main_home:
+                    setTitle(mTitles[0]);
+                    viewpagerMain.setCurrentItem(0, false);
+                    break;
+                case R.id.rbtn_main_project:
+                    setTitle(mTitles[1]);
+                    viewpagerMain.setCurrentItem(1, false);
+                    break;
+                case R.id.rbtn_main_wechat:
+                    setTitle(mTitles[2]);
+                    viewpagerMain.setCurrentItem(2, false);
+                    break;
+                case R.id.rbtn_main_system:
+                    setTitle(mTitles[3]);
+                    viewpagerMain.setCurrentItem(3, false);
+                    break;
+                case R.id.rbtn_main_navi:
+                    setTitle(mTitles[4]);
+                    viewpagerMain.setCurrentItem(4, false);
+                    break;
             }
         });
 
@@ -154,13 +151,11 @@ public class MainActivity extends BaseActivity implements View.OnClickListener, 
 
             @Override
             public void onPageSelected(final int position) {
-                handler.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        setTitle(mTitles[position]);
-                        argbEvaluatorUtil.setTabSelect(position);
-                    }
+                handler.postDelayed(() -> {
+                    setTitle(mTitles[position]);
+                    argbEvaluatorUtil.setTabSelect(position);
                 }, DELAY_TIME);
+
                 argbEvaluatorUtil.setChecked(position);
             }
 

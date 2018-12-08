@@ -23,10 +23,16 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
+
+    //开启Java1.8 能够使用lambda表达式
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
 }
 
 dependencies {
-    androidTestCompile('com.android.support:support-annotations:26.1.0') {
+    androidTestImplementation('com.android.support:support-annotations:26.1.0') {
         force = true
     }
 

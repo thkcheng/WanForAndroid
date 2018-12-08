@@ -60,15 +60,12 @@ public class ProjectChildFragment extends BaseFragment implements OnRefreshListe
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
 
-        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.itemView) {
-                    Intent intent = new Intent(mActivity, ContentDetailsActivity.class);
-                    intent.putExtra("title", projectbeans.get(position).getTitle());
-                    intent.putExtra("link_url", projectbeans.get(position).getLink());
-                    startActivity(intent);
-                }
+        mAdapter.setOnItemChildClickListener((adapter,view,position) -> {
+            if (view.getId() == R.id.itemView) {
+                Intent intent = new Intent(mActivity, ContentDetailsActivity.class);
+                intent.putExtra("title", projectbeans.get(position).getTitle());
+                intent.putExtra("link_url", projectbeans.get(position).getLink());
+                startActivity(intent);
             }
         });
     }

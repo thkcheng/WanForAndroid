@@ -61,15 +61,12 @@ public class WeChatChildFragment extends BaseFragment implements OnRefreshListen
         mRefreshLayout.setOnRefreshListener(this);
         mRefreshLayout.setOnLoadMoreListener(this);
 
-        mAdapter.setOnItemChildClickListener(new BaseQuickAdapter.OnItemChildClickListener() {
-            @Override
-            public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
-                if (view.getId() == R.id.itemView) {
-                    Intent intent = new Intent(mActivity, ContentDetailsActivity.class);
-                    intent.putExtra("title", wechatbeans.get(position).getTitle());
-                    intent.putExtra("link_url", wechatbeans.get(position).getLink());
-                    startActivity(intent);
-                }
+        mAdapter.setOnItemChildClickListener((adapter,view,position) -> {
+            if (view.getId() == R.id.itemView) {
+                Intent intent = new Intent(mActivity, ContentDetailsActivity.class);
+                intent.putExtra("title", wechatbeans.get(position).getTitle());
+                intent.putExtra("link_url", wechatbeans.get(position).getLink());
+                startActivity(intent);
             }
         });
     }
